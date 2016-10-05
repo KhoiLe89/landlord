@@ -5,6 +5,7 @@ require "pg" # postgres db library
 require "active_record" # the ORM
 require "pry" # for debugging
 
+
 ActiveRecord::Base.establish_connection(
   :adapter => "postgresql",
   :database => "landlord"
@@ -34,16 +35,34 @@ end
 all_tenants = Tenant.all
 
 # get the first tenant in the DB
+tenant1 = Tenant.find(1)
 # get all tenants older than 65
+old_tenant = Tenant.where("age > 65")
 # get all apartments whose price is greater than $2300
+exp_apartments = Apartment.where("monthly_rent > 2300")
 # get the apartment with the address "6005 Damien Corners"
+damien = Apartment.find_by(address: "6005 Damien Corners")
 # get all tenants in that apartment
-
+damien_tenant = damien.tenants
 # Use `each` and `puts` to:
 # Display the name and ID # of every tenant
+name_id = Tenant.all.each do |tenant|
+  puts tenant.name
+  puts tenant.id
+end
 # Iterate over each apartment, for each apartment, display it's address and rent price
-# Iterate over each apartment, for each apartment, display it's address and all of it's tenants
+apartment_price_address = Apartment.all.each do |apartment|
+  p apartment.address
+  p apartment.monthly_rent
+end
 
+# Iterate over each apartment, for each apartment, display it's address and all of it's tenants
+Apartment.all.each do |apartment|
+  a_tenant = apartment.tenants.each do |tenant|
+  p a_tenant
+  p apartment.address
+end
+end
 ################################################
 # CREATING / UPDATING / DELETING
 ################################################
@@ -51,6 +70,9 @@ all_tenants = Tenant.all
 # Hint, the following methods will help: `new`, `create`, `save`, `uddate`, `destroy`
 
 # Create 3 new apartments, and save them to the DB
+
+first_new = Apartment.new(address: "1 main street", monthly_rent: )
+second_new = Apartment.new(address: "2 main street" monthly_rent: )
 # Create at least 9 new tenants and save them to the DB. (Make sure they belong to an apartment)
 # Note: you'll use this little bit of code as a `seeds.rb` file later on.
 
@@ -69,3 +91,6 @@ all_tenants = Tenant.all
 # Millenial Eviction!
 # Find all tenants who are under 30 years old
 # Delete their records from the DB
+
+binding.pry
+puts "hi"
