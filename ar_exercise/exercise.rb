@@ -58,10 +58,10 @@ end
 
 # Iterate over each apartment, for each apartment, display it's address and all of it's tenants
 Apartment.all.each do |apartment|
-  a_tenant = apartment.tenants.each do |tenant|
-  p a_tenant
-  p apartment.address
-end
+  apartment.tenants.each do |tenant|
+    p tenant.name
+    p apartment.address
+  end
 end
 ################################################
 # CREATING / UPDATING / DELETING
@@ -71,19 +71,33 @@ end
 
 # Create 3 new apartments, and save them to the DB
 
-first_new = Apartment.new(address: "1 main street", monthly_rent: )
-second_new = Apartment.new(address: "2 main street" monthly_rent: )
+first_new = Apartment.new(address: "1 main street", monthly_rent: 1000)
+second_new = Apartment.new(address: "2 main street", monthly_rent: 1000)
+third_new = Apartment.new(address: "3 main street", monthly_rent: 1000)
 # Create at least 9 new tenants and save them to the DB. (Make sure they belong to an apartment)
+michael = Tenant.create(name: "Michael", apartment_id: 5)
+mike_f = Tenant.create(name: "Mike", apartment_id: 5)
+mike_r = Tenant.create(name: "Mike", apartment_id: 6)
+andy = Tenant.create(name: "Andy", apartment_id: 6)
+alec = Tenant.create(name: "Alec", apartment_id: 7)
+mariana =  Tenant.create(name: "Mariana", apartment_id: 6)
+ian = Tenant.create(name: "Ian", apartment_id: 6)
+alex = Tenant.create(name: "Alex", apartment_id: 2)
+kevin = Tenant.create(name: "Kevin", apartment_id: 3)
 # Note: you'll use this little bit of code as a `seeds.rb` file later on.
 
 # Birthday!
 # It's Kristin Wisoky's birthday. Find her in the DB and change her age to be 1 year older
 # Note: She's in the seed data, so she should be in your DB
-
+kristin = Tenant.find_by(name: "Kristin Wisoky")
+kristin.update(age: 24)
+kristin.save
 # Rennovation!
 # Find the apartment "62897 Verna Walk" and update it to have an additional bedroom
 # Make sure to save the results to your database
-
+verna = Apartment.find_by(address: "62897 Verna Walk")
+verna.update(num_beds: 3)
+verna.save
 # Rent Adjustment!
 # Update the same apartment that you just 'rennovated'. Increase it's rent by $400
 # to reflect the new bedroom
